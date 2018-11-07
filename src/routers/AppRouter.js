@@ -1,12 +1,16 @@
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import React from 'react';
 
-import PostsIndex from '../components/PostsIndex';
+import BlogsIndex from '../components/BlogsIndex';
+import CreateBlog from '../components/CreateBlog';
 
 export default () => {
     return(
         <BrowserRouter>
-            <Route path="/" exact={true} component={PostsIndex}/>
+            <Switch>
+                <Route path="/" component={BlogsIndex} exact={true}/>
+                <Route path="/blogs/create" component={CreateBlog}/>
+            </Switch>
         </BrowserRouter>
     );
 }
