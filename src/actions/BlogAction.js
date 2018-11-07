@@ -6,6 +6,7 @@ const API_KEY = '?key=dfajlj3ljo3fhda892he2f9hakfh92hfakhdf';
 
 export const FETCH_POST = 'FETCH_POST';
 export const CREATE_POST = 'CREATE_POST';
+export const SHOW_BLOG = "SHOW_BLOG";
 
 export const fetchPost = () => {
     const request = Axios.get(`${ROOT_URL}/posts${API_KEY}`);
@@ -22,6 +23,15 @@ export const createPost = (values, callback) => {
 
     return {
         type: CREATE_POST,
+        payload: request
+    }
+};
+
+export const showBlog = (id) => {
+    const request = Axios.get(`${ROOT_URL}/posts/${id}${API_KEY}`);
+
+    return {
+        type: SHOW_BLOG,
         payload: request
     }
 };
