@@ -1,21 +1,32 @@
 import React,{Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {createPost} from '../actions/BlogAction';
 
 class CreateBlog extends Component {
+    renderField = (field) => {
+        const { touched, error } = field.meta;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
 
-    renderField = (field) => (
-        <div className="form-group">
-            <label>{field.label}</label>
-            <input className="form-control"
-                type="text"
-                {...field.input}
-            />
-            {field.meta.touched? field.meta.error : ''}
-        </div>
-    );
+        return (
+            <div className={className}>
+                <label>{field.label}</label>
+                <input className="form-control"
+                       type="text"
+                       {...field.input}
+                />
+                <div className="text-help">
+                    {touched ? error : ''}
+                </div>
+            </div>
+        )
+}   ;
 
     onSubmit = (values) => {
-        console.log(values);
+        this.props.dispatch(createPost(values, ()=>{
+            this.props.history.push('/')
+        }))
     };
 
     render() {
@@ -38,6 +49,7 @@ class CreateBlog extends Component {
                         name="content"
                         component={this.renderField}/>
                     <button type="submit" className="btn btn-primary">Submit</button>
+                    <Link to="/" className = "btn btn-danger">Cancel</Link>
                 </form>
             </div>
         );
@@ -62,7 +74,15 @@ const validate = (values) => {
     return errors;
 };
 
+// const mapStateToProps = (state) => {
+//   return {
+//       blogs: state.blogs
+//   }
+// };
+
 export default reduxForm({
     validate,
     form: 'PostsNewForm'
-})(CreateBlog);
+})(
+    connect()(CreateBlog)
+);

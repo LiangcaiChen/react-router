@@ -16,8 +16,12 @@ export const fetchPost = () => {
     }
 };
 
-export const createPost = () => {
+export const createPost = (values, callback) => {
+    const request = Axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+        .then(()=> callback());
+
     return {
-        type: CREATE_POST
+        type: CREATE_POST,
+        payload: request
     }
 };
