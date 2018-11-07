@@ -1,6 +1,7 @@
 import {BrowserRouter, Route} from 'react-router-dom';
+import React from 'react';
+
 import PostsIndex from '../components/PostsIndex';
-import React,{Component} from 'react';
 
 export default () => {
     return(
