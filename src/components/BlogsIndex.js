@@ -12,9 +12,9 @@ class PostsIndex extends Component {
     renderBlogs = () => {
         return _.map(this.props.blogs, blog => {
             return (
-                <li className="list-group-item" key={blog.id}>
+                <Link className="list-group-item" key={blog.id} to={`/blogs/${blog.id}`}>
                     {blog.title}
-                </li>
+                </Link>
             )
         })
     };
