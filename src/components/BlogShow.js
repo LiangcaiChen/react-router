@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {showBlog} from '../actions/BlogAction';
+import {showBlog, deleteBlog} from '../actions/BlogAction';
 import {Link} from 'react-router-dom';
 
 class BlogShow extends Component {
@@ -8,6 +8,13 @@ class BlogShow extends Component {
         const { id } = this.props.match.params;
         this.props.dispatch(showBlog(id));
     }
+
+    onDeleteClick = () => {
+        const { id } = this.props.match.params;
+        this.props.dispatch(deleteBlog(id, ()=>{
+            this.props.history.push("/");
+        }));
+    };
 
     render() {
         const {blog} = this.props;
@@ -22,6 +29,11 @@ class BlogShow extends Component {
               <h3>{blog.title}</h3>
               <h6>Categories: {blog.categories}</h6>
               <p>{blog.content}</p>
+
+              <button
+                className="btn- btn-danger pull-xs-right"
+                onClick={this.onDeleteClick}
+              >Delete post</button>
           </div>
         );
     }
